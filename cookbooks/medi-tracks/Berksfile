@@ -1,3 +1,5 @@
 source 'https://supermarket.chef.io'
 
 metadata
+cookbook 'medi-audit-cis', path: '../medi-audit-cis'
+cookbook 'medi-base', path: '../medi-base'

@@ -6,6 +6,11 @@ description 'Installs/Configures medi-tracks'
 long_description 'Installs/Configures medi-tracks'
 version '0.1.0'
 
+depends 'ruby_build', '~> 1.0'
+depends 'mysql2_chef_gem', '~> 1.1'
+depends 'mysql', '~> 8.2'
+depends 'database', '~> 6.1'
+
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
 # uploaded to a Supermarket.

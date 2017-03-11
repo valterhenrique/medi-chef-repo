@@ -5,6 +5,8 @@ driver:
 provisioner:
   name: chef_zero
   always_update_cookbooks: false
+  roles_path: ../../roles
+  data_bags_path: ../../data_bags
 
 verifier:
   name: inspec
@@ -15,8 +17,13 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[medi-tracks::default]
+      - role[tracks]
     verifier:
       inspec_tests:
         - test/smoke/default
     attributes:
+      authorization:
+        sudo:
+          users: ['kitchen', 'vagrant']
+          passwordless: true
+          include_sudoers_d: true
