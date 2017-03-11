@@ -1,6 +1,6 @@
 default['medi-tracks']['user'] = 'tracks'
 default['medi-tracks']['group'] = 'tracks'
-default['medi-tracks']['home'] = '/opt/tracks'
+default['medi-tracks']['home'] = '/home/tracks'
 default['medi-tracks']['app'] = '/srv/tracks'
 default['medi-tracks']['shell'] = '/bin/false'
 default['medi-tracks']['repository'] = 'https://github.com/TracksApp/tracks.git'

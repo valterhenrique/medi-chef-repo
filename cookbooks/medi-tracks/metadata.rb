@@ -7,6 +7,7 @@ long_description 'Installs/Configures medi-tracks'
 version '0.1.0'
 
 depends 'ruby_build', '~> 1.0'
+depends 'ruby_rbenv', '~> 1.1'
 depends 'mysql2_chef_gem', '~> 1.1'
 depends 'mysql', '~> 8.2'
 depends 'database', '~> 6.1'

@@ -6,6 +6,21 @@
     "default_attributes": {
       "anevis-base":{
         "ports": ["22", "3306"]
+      },
+      "rbenv":{
+        "user_installs":[
+          {
+            "user":"tracks",
+            "rubies":["2.4.0"],
+            "global":"2.4.0",
+            "gems":{
+              "2.4.0" :[
+                { "name" : "json" },
+                { "name" : "bundler" }
+              ]
+            }
+          }
+        ]
       }
     },
     "override_attributes": {
@@ -13,6 +28,7 @@
     "run_list": [
         "role[base]",
         "recipe[ruby_build]",
+        "recipe[ruby_rbenv]",
         "recipe[medi-tracks]"
     ]
 }
