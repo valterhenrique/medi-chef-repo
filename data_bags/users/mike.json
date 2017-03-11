@@ -1,0 +1,13 @@
+{
+  "id": "mike",
+  "comment": "Mike Doe",
+  "home": "/home/mike",
+  "groups": [
+    "developer",
+    "sysadmin"
+  ],
+  "shell": "/bin/bash",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1JgJwwTmlMyTZOQSXHC+W/wRbpCWlybfiS70WVM2Y1muRWeD/gGhdy0WVDyigPSZCwHvROcXOm2qSq3NkfbxTPltea9ZDw6VmZScsbiqj+KAk4E2Lf1DaGdOJu41W7pnfsIYVBHP9lgfWaaDIswnyvWKxI2Nd62Urw73Bjm/Ga8fozhI+LO5b6wcfMZd2ggqoLDQwUC/m16QBKvdKb3tKVd/5FKxa2I88HsSqB8+3tMB55YdyjAhjrZFfr88fFEIzzWbM4JKejW7/37o7Jg9FEyKNKMr8NoO9vdYykpAkvcwFypyEhD8JkgZZFtHPUxnNeBvb/5iEFD8lKcKYb1YAqRBUGmN9eg6Yv61Z0MdvOk/4+oC9lr5Y0Tovg3iHUl9OopESB8PC452Ij6NEWjOHl6juT4vy9OJ2ZgmL47X+XV3pfhE09/y1h7WC5ImVDqsX8UIeHurZBuvEyRt4E26WqhKJ5sJ+QJaZzzpw6n3RAO6mbBZ/BCj0Hf3tpjRWhnXWcN+/Tr+8eoEWuNt0JAM7giEtapKEWu236Gh1FdbicL28Nc4H8UcyRzTdwnUI0YJl2iufG5nQgSjI5U1nqLK+CV8JqmGTepbjurN2+y7LcKcbiC509DTuD2DoMR1pkc8zRKqA04murQ88lu3cELR+fI7KMP3yXklVzAbqaLhVrw== mike@medi.com"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "base",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "ntp" : {
+      "servers":
+        ["0.europe.pool.ntp.org",
+          "1.europe.pool.ntp.org",
+          "2.europe.pool.ntp.org",
+          "3.europe.pool.ntp.org"]
+        },
+    "system": {
+      "timezone":
+        "Europe/Berlin"
+      },
+    "firewall": {
+      "allow_ssh":  "true"
+      },
+    "ssh-hardening": {
+      "ssh": {
+        "client": {
+          "password_authentication": "false"
+          }
+      }
+    },
+    "authorization": {
+      "sudo": {
+        "passwordless": "true"
+      }
+    },
+    "set_fqdn": "*.medi.com",
+    "nrpe": {
+      "server_address" : "nagios.medi.com"
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[medi-audit-cis]",
+    "recipe[medi-base]",
+    "recipe[apt]",
+    "recipe[build-essential]",
+    "recipe[chef-client]",
+    "recipe[chef-client::delete_validation]",
+    "recipe[firewall]",
+    "recipe[hostnames]",
+    "recipe[locale]",
+    "recipe[nrpe]",
+    "recipe[ntp]",
+    "recipe[system]",
+    "recipe[ssh-hardening]",
+    "recipe[sudo]"
+  ],
+  "env_run_lists": {
+
+  }
+}
