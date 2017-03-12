@@ -32,6 +32,11 @@ rbenv_gem "bundler" do
 end
 
 # 'Set up the database' section
+
+firewall_rule "open MySQL port" do
+  port 3306
+end
+
 mysql2_chef_gem 'default' do
   action :install
 end
@@ -112,4 +117,9 @@ rbenv_script "fetch tracks gems" do
   group         "tracks"
   cwd           "/srv/tracks"
   code          %{bundle exec rake assets:precompile RAILS_ENV=production}
+end
+
+# Open port for WebBrick
+firewall_rule "open MySQL port" do
+  port 3000
 end

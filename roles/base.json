@@ -10,10 +10,7 @@
           "2.europe.pool.ntp.org",
           "3.europe.pool.ntp.org"]
         },
-    "system": {
-      "timezone":
-        "Europe/Berlin"
-      },
+    "tz" : "Europe/Berlin",
     "firewall": {
       "allow_ssh":  "true"
       },
@@ -39,8 +36,6 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[medi-audit-cis]",
-    "recipe[medi-base]",
     "recipe[apt]",
     "recipe[build-essential]",
     "recipe[chef-client]",
@@ -50,9 +45,11 @@
     "recipe[locale]",
     "recipe[nrpe]",
     "recipe[ntp]",
-    "recipe[system]",
     "recipe[ssh-hardening]",
-    "recipe[sudo]"
+    "recipe[sudo]",
+    "recipe[timezone_lwrp]",
+    "recipe[medi-audit-cis]",
+    "recipe[medi-base]"
   ],
   "env_run_lists": {
 

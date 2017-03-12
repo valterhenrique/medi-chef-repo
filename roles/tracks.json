@@ -4,11 +4,6 @@
     "chef_type": "role",
     "json_class": "Chef::Role",
     "default_attributes": {
-      "anevis-base":{
-        "ports": {
-          "allow": ["22", "3306"]
-          }
-      },
       "rbenv":{
         "user_installs":[
           {

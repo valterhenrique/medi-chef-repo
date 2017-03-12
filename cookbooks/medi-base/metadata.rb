@@ -18,7 +18,7 @@ depends 'ntp', '~> 3.3'
 depends 'poise-python', '~> 1.5'
 depends 'ssh-hardening', '~> 2.0'
 depends 'sudo', '~> 3.3'
-depends 'system', '~> 0.11'
+depends 'timezone_lwrp', '~> 0.1'
 depends 'users', '~> 4.0'
 
 # The `issues_url` points to the location where issues for this cookbook are
