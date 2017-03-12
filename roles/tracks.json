@@ -5,17 +5,18 @@
     "json_class": "Chef::Role",
     "default_attributes": {
       "anevis-base":{
-        "ports": ["22", "3306"]
+        "ports": {
+          "allow": ["22", "3306"]
+          }
       },
       "rbenv":{
         "user_installs":[
           {
             "user":"tracks",
-            "rubies":["2.4.0"],
-            "global":"2.4.0",
+            "rubies":["2.2.6"],
+            "global":"2.2.6",
             "gems":{
-              "2.4.0" :[
-                { "name" : "json" },
+              "2.2.6" :[
                 { "name" : "bundler" }
               ]
             }

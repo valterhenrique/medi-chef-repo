@@ -20,10 +20,26 @@ directory  node['medi-tracks']['app'] do
   mode '2755'
 end
 
+# 'Get Tracks' section
 git node['medi-tracks']['app'] do
   repository node['medi-tracks']['repository']
   revision 'master'
   user node['medi-tracks']['user']
   group node['medi-tracks']['group']
-  action :sync
+  action :checkout
+end
+
+# 'Configure variables' section
+template node['medi-tracks']['app']+'/config/database.yml' do
+  owner 'tracks'
+  group 'tracks'
+  mode '0600'
+  source 'database.yml.erb'
+end
+
+template node['medi-tracks']['app']+'/config/site.yml' do
+  owner 'tracks'
+  group 'tracks'
+  mode '0600'
+  source 'site.yml.erb'
 end
