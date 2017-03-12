@@ -1,0 +1,19 @@
+description     "Tracks Application"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+console log
+respawn
+
+pre-start script
+   if [ -f /var/run/mysqld/mysqld.sock ]; then
+     mkdir -p /var/run/mysqld
+     ln -s /var/run/mysql-tracks/mysqld.sock /var/run/mysqld/mysqld.sock
+   fi
+   exec sudo su - tracks -s /bin/bash -c 'cd /srv/tracks && thin start -C tracks-thin.yml'
+end script
+
+post-stop script
+   exec sudo su - tracks -s /bin/bash -c 'cd /srv/tracks && thin stop -C tracks-thin.yml'
+end script

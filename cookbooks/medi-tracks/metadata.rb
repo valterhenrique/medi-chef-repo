@@ -10,6 +10,7 @@ depends 'ruby_build', '~> 1.0'
 depends 'ruby_rbenv', '~> 1.1'
 depends 'mysql2_chef_gem', '~> 1.1'
 depends 'mysql', '~> 8.2'
+depends 'chef_nginx', '~> 5.1'
 depends 'database', '~> 6.1'
 
 # The `issues_url` points to the location where issues for this cookbook are

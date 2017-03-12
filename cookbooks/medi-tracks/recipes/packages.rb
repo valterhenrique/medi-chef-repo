@@ -10,22 +10,12 @@ ruby_build_ruby '2.2.6' do
   action :install
 end
 
-# package 'build-essential'
-# package 'libmysqlclient-dev'
-
 # TODO: (improvement)
 # Make tracks' user to use the same ruby installed on system?
 
-include_recipe "ruby_rbenv::user"
+include_recipe 'ruby_rbenv::user'
 
-# rbenv_gem "json" do
-#   rbenv_version  '2.2.6'
-#   version '1.8.3'
-#   action :install
-#   user 'tracks'
-# end
-
-rbenv_gem "bundler" do
+rbenv_gem 'bundler' do
   rbenv_version  '2.2.6'
   action :install
   user 'tracks'
@@ -33,7 +23,7 @@ end
 
 # 'Set up the database' section
 
-firewall_rule "open MySQL port" do
+firewall_rule 'open MySQL port' do
   port 3306
 end
 
@@ -70,56 +60,94 @@ end
 
 ## fix problem with mysql.sock | https://goo.gl/oNHn8s
 
+directory '/var/run/mysqld/' do
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
 link '/var/run/mysqld/mysqld.sock' do
   to '/var/run/mysql-tracks/mysqld.sock'
+  link_type :hard
 end
 
 # 'Install dependencies' section
 
 ## fix problem with git protocol
-rbenv_script "use git insecure with bundlers" do
-  rbenv_version "2.2.6"
-  user          "tracks"
-  group         "tracks"
-  cwd           "/srv/tracks"
+rbenv_script 'use git insecure with bundlers' do
+  rbenv_version '2.2.6'
+  user          'tracks'
+  group         'tracks'
+  cwd           '/srv/tracks'
   code          %{bundle config git.allow_insecure true}
 end
 
-# rbenv_script "fetch tracks gems" do
-#   rbenv_version "2.2.6"
-#   user          "tracks"
-#   group         "tracks"
-#   cwd           "/srv/tracks"
-#   code          %{bundle update}
-# end
-
-rbenv_script "fetch tracks gems" do
-  rbenv_version "2.2.6"
-  user          "tracks"
-  group         "tracks"
-  cwd           "/srv/tracks"
+rbenv_script 'fetch tracks gems' do
+  rbenv_version '2.2.6'
+  user          'tracks'
+  group         'tracks'
+  cwd           '/srv/tracks'
   code          %{bundle install --without development test}
 end
 
 # 'Populate your database with the Tracks schema' section
-rbenv_script "fetch tracks gems" do
-  rbenv_version "2.2.6"
-  user          "tracks"
-  group         "tracks"
-  cwd           "/srv/tracks"
+rbenv_script 'fetch tracks gems' do
+  rbenv_version '2.2.6'
+  user          'tracks'
+  group         'tracks'
+  cwd           '/srv/tracks'
   code          %{bundle exec rake db:migrate RAILS_ENV=production}
 end
 
 # 'Precompile assets' section
-rbenv_script "fetch tracks gems" do
-  rbenv_version "2.2.6"
-  user          "tracks"
-  group         "tracks"
-  cwd           "/srv/tracks"
+rbenv_script 'fetch tracks gems' do
+  rbenv_version '2.2.6'
+  user          'tracks'
+  group         'tracks'
+  cwd           '/srv/tracks'
   code          %{bundle exec rake assets:precompile RAILS_ENV=production}
 end
 
+# bundle exec rails server -b 0.0.0.0 -e production
+
+# Open port for nginx
+firewall_rule 'open MySQL port' do
+  port 80
+end
+
 # Open port for WebBrick
-firewall_rule "open MySQL port" do
+firewall_rule 'open MySQL port' do
   port 3000
+end
+
+# Run an nginx reverse proxy in front of the Rails application:
+include_recipe 'chef_nginx'
+
+template '/etc/nginx/sites-available/tracks' do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  source 'tracks-nginx.conf.erb'
+end
+
+template '/etc/init/tracks.conf' do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  source 'tracks-upstart.conf.erb'
+end
+
+service 'tracks' do
+  action [:enable, :start]
+  subscribes :restart, 'template[/etc/init/tracks.conf]', :immediately
+end
+
+link '/etc/nginx/sites-enabled/tracks' do
+  to '/etc/nginx/sites-available/tracks'
+end
+
+
+service 'nginx' do
+  action :nothing
+  subscribes :restart, 'link[/etc/nginx/sites-enabled/tracks]', :immediately
 end

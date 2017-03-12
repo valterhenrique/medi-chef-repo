@@ -1,3 +1,4 @@
+default['medi-tracks']['hostname'] = 'medi-tracks.com'
 default['medi-tracks']['user'] = 'tracks'
 default['medi-tracks']['group'] = 'tracks'
 default['medi-tracks']['home'] = '/home/tracks'

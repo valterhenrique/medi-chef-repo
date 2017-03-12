@@ -43,3 +43,10 @@ template node['medi-tracks']['app']+'/config/site.yml' do
   mode '0600'
   source 'site.yml.erb'
 end
+
+template node['medi-tracks']['app']+'/tracks-thin.yml' do
+  owner 'tracks'
+  group 'tracks'
+  mode '0600'
+  source 'tracks-thin.yml.erb'
+end
