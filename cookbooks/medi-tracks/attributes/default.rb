@@ -10,3 +10,6 @@ default['medi-tracks']['mysql']['username'] = 'tracks'
 default['medi-tracks']['mysql']['password'] = 'changemetoo'
 default['medi-tracks']['admin']['email'] = 'admin@medi.com'
 default['medi-tracks']['admin']['password'] = 'changemeplease'
+
+
+# TODO: improve the recipe using encrypted data bags
