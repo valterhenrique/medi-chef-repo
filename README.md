@@ -7,89 +7,41 @@ Deploy Tracks, a Ruby on Rails applications using Chef.
 Install/Configure [Chef DK](https://docs.chef.io/install_dk.html).
 I've also developed this [script](https://gist.github.com/valterhenrique/b0d2039ca58bf5bcc81ac25b74fb52cb) on Ubuntu to ease this step.
 
-## AWS
+## VirtualBox
 
-* Create an account on AWS
-* Create an user with programmatic access
-* Give to her/him access to EC2 services.
-* Download the generated credentials
-
-It should look like this:
-
-    User name,Password,Access key ID,Secret access key,Console login link
-    username,,AAA,BBB,https://AWS_ACCOUNT_ID.signin.aws.amazon.com/console
-
-### Install AWS CLI.
-
-On Ubuntu:
-
-Install it using pip:
-
-    sudo pip install awscli  
-
-Or, install it using apt-get:
-
-    sudo apt-get install -y awscli
-
-You can test it by typing:
-
-    aws --version
-
-The output should be similar to:
-
-    aws-cli/1.11.58 Python/2.7.12 Linux/4.4.0-65-generic botocore/1.5.21
-
-### Configure AWS CLI
-
-    $ aws configure
-    AWS Access Key ID [None]: AAA
-    AWS Secret Access Key [None]: BBB
-    Default region name [None]: eu-central-1
-    Default output format [None]: json
-
-### Create a key pair
-
-Go to EC2 Dashboard, on the left side bar, look for `NETWORK & SECURITY`, then `Key Pairs`.
-Create a key pair, and save it at `~/.ssh/aws-vasi.pem` (`TODO`: Make an environment variable ?)
-
-(I've tried generating this key pair using `kitchen EC2` but it [didn't work for me](https://github.com/test-kitchen/kitchen-docker/issues/202)
-
-## Configure Security Groups
-
-Create a security groups that allows ports: `22`.
-
-TODO: add required ports into a new security group
-
-## Kitchen EC2
-
-Install/Configure [kitchen ec2 plugin](https://github.com/test-kitchen/kitchen-ec2#initial-setup)
+Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
 ## Run
 
-After ChefDK, AWS and Kitchen EC2 are configured, type:
+After ChefDK, VirtualBox are installed and configured, type:
 
     cd cookbooks/medi-tracks/
     kitchen converge
 
-This will create a new ec2 instance on AWS EC2 service, bootstrap it using `run_list`
+This will create a new instance on VirtualBox, doing a bootstrap using `run_list` configured in `.kitchen.yml`
 
 After that, you can access the machine by typing:
 
     kitchen login
 
-You can do `curl` commands in order to test if the application is running:
 
-TODO: add test with curl
+## Access
 
-To view the logs:
+First, add a new hostname entry in your `/etc/hosts`, since we are using a development environment this step will simulate that we know the address `medi-tracks.com`:
 
-TODO: add how to view logs
-
-
-TODO: add how to access application remotely with dns and port
-You can access our application remotely by accessing `http://<ec2-public-ip-or-public-dns>:/`
+    192.168.33.33 medi-tracks.com
 
 
+After the converge step is complete, you can access the address above:
+
+    http://medi-tracks.com
+
+ Or just click [here](http://medi-tracks.com). And you should see Tracks website interface.
+
+## Logs
+
+To view the logs, you access the virtual machine, using `kitchen login` and then view the logs at
+`/srv/tracks/logs`.
 
 ## Repository Directories
 
@@ -98,7 +50,6 @@ This repository contains several directories, and each directory contains a READ
 - `cookbooks/` - Cookbooks you download or create.
 - `data_bags/` - Store data bags and items in .json in the repository.
 - `roles/` - Store roles in .rb or .json in the repository.
-- `environments/` - Store environments in .rb or .json in the repository.
 
 ## Next Steps
 

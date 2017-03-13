@@ -3,12 +3,13 @@ driver:
   name: vagrant
   network:
     - ["private_network", {ip: "192.168.33.33"}]
-    
+
 provisioner:
   name: chef_zero
   always_update_cookbooks: false
   roles_path: ../../roles
   data_bags_path: ../../data_bags
+  encrypted_data_bag_secret_key_path: "../../secret_key"
 
 verifier:
   name: inspec
